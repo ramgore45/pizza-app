@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import { Btn } from '../common/Btn'
 import { MdDeleteOutline, MdOutlineCurrencyRupee } from 'react-icons/md'
 import { TiShoppingCart } from 'react-icons/ti'
@@ -8,11 +8,12 @@ import { FaArrowCircleRight } from 'react-icons/fa'
 import { useDispatch, useSelector } from 'react-redux'
 import { removeFromCart,emptyCart } from '../../reducer/slices/cartSlice'
 import { useNavigate } from 'react-router-dom'
+import { AppContext } from '../contextapi/ContextApi'
 
 export const Fullcart = () => {
 
     const navigate = useNavigate()
-    const [isLogIn,setIsLogIn] = useState()
+    const {logIn} = useContext(AppContext)
 
     const {cart,totalAmount,totalCount} = useSelector(state=> state.cart)
     const dispatch = useDispatch()
@@ -62,9 +63,9 @@ export const Fullcart = () => {
         </div>
         <div className='text-white self-end font-medium'>
             <Btn 
-                clickHandler={isLogIn ? ()=>console.log('btn') : ()=>navigate('/login') }
-                btnIcon={isLogIn ? <FaArrowCircleRight/> : <LuLogIn/>}
-                btnText={ isLogIn ?'Order Now':'Login To Continue'} 
+                clickHandler={logIn ? ()=>console.log('btn') : ()=>navigate('/login') }
+                btnIcon={logIn ? <FaArrowCircleRight/> : <LuLogIn/>}
+                btnText={ logIn ?'Order Now':'Login To Continue'} 
                 bgColor={'bg-red-500'} hoverColor={'bg-color-700'}
             />
         </div>

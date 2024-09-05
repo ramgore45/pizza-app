@@ -1,6 +1,10 @@
-import React from 'react'
+import React, { useContext } from 'react'
+import { AppContext } from '../contextapi/ContextApi'
 
 export const Inputfield = ({id, name, type, placeholder, autocomplete}) => {
+
+  const {changeHandler} = useContext(AppContext)
+
   return (
     
         <div className="mt-1">
@@ -11,7 +15,8 @@ export const Inputfield = ({id, name, type, placeholder, autocomplete}) => {
                 placeholder={placeholder}
                 name={name}
                 type={type} 
-                autocomplete={autocomplete} 
+                autoComplete={autocomplete} 
+                onChange={changeHandler}
             />
         </div>
   )

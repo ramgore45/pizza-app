@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useContext, useState } from 'react'
 import { Btn } from '../common/Btn'
 import pizzaLogo from '../../assets/logos/pizzalogo.png'
 import { Inputfield } from './Inputfield'
 import { Label } from './Label'
+import { AppContext } from '../contextapi/ContextApi'
 
 export const FormTemplate = ({signUpPage}) => {
+
+    const {handleOnSubmit} = useContext(AppContext)
+
   return (
     <div className="flex  min-h-full flex-col justify-center px-6 py-8 lg:px-8 w-full">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
@@ -17,7 +21,9 @@ export const FormTemplate = ({signUpPage}) => {
       </div>
 
       <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-2 min-w-80" action="#" method="POST">
+        <form className="space-y-2 min-w-80" action="#" method="POST"
+            onSubmit={()=>handleOnSubmit(signUpPage)}
+        >
 
             { signUpPage &&
                 (
@@ -58,9 +64,9 @@ export const FormTemplate = ({signUpPage}) => {
                 )
             }
 
-            <div className='w-full font-medium pt-4' >
+            <button className='w-full font-medium pt-4' type='submit'>
                 <Btn btnText={ signUpPage ? "Sign Up":"Log In"} bgColor={'bg-orange-400'} hoverColor={'bg-orange-600'} />
-            </div>
+            </button>
 
         </form>
 
