@@ -18,21 +18,22 @@ database.connect()
 const cookieParser = require('cookie-parser')
 app.use(cookieParser())
 
-// const fileUpload = require('express-fileupload')
-// app.use(
-//     fileUpload({
-// 		useTempFiles:true,
-// 		tempFileDir:"/tmp",
-// 	})
-// )
+const fileUpload = require('express-fileupload')
+app.use(
+    fileUpload({
+		useTempFiles:true,
+		tempFileDir:"/tmp",
+	})
+)
 
-// const cors = require('cors')
-// app.use(
-//     cors({
-// 		origin:"*",
-// 		credentials:true,
-// 	})
-// )
+// cors helps to integrate the APIs with Frontend requests
+const cors = require('cors')
+app.use(
+    cors({
+		origin:"*",
+		credentials:true,
+	})
+)
 
 // Routes
 const userRoutes = require('./routes/userRoutes')
