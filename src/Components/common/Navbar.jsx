@@ -5,10 +5,13 @@ import { Btn } from './Btn'
 import { LuLogIn } from 'react-icons/lu'
 import { MdAddShoppingCart } from 'react-icons/md'
 import { matchPath, NavLink, useLocation } from 'react-router-dom'
+import { useSelector } from 'react-redux'
+import { FaBars } from 'react-icons/fa'
 
 export const Navbar = ({totalCount}) => {
 
     const location = useLocation()
+    const {token} = useSelector(state=> state.auth)
 
     const matchroute=(route)=>{
         return matchPath({path:route}, location.pathname)
@@ -45,12 +48,20 @@ export const Navbar = ({totalCount}) => {
 
             {/* Buttons */}
             <div className='flex gap-x-4 self-center justify-center content-center font-medium'>
-                <NavLink to={'/login'}>
-                    <Btn btnIcon={<LuLogIn/>} btnText={'Login'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>
-                </NavLink>
-                <NavLink to={'/signup'}>
-                    <Btn btnIcon={<LuLogIn/>} btnText={'Signup'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>
-                </NavLink>
+                {token===null &&
+                    (
+                        <NavLink to={'/login'}>
+                            <Btn btnIcon={<LuLogIn/>} btnText={'Login'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>
+                        </NavLink>
+                    )
+                }
+                {token===null &&
+                    (
+                        <NavLink to={'/signup'}>
+                            <Btn btnIcon={<LuLogIn/>} btnText={'Signup'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>
+                        </NavLink>
+                    )     
+                }
                 <NavLink to={'/cart'}>
                     <div className='relative w-fit'>
                         {
@@ -63,6 +74,13 @@ export const Navbar = ({totalCount}) => {
                         <Btn btnIcon={<MdAddShoppingCart/>} btnText={'Cart'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>                   
                     </div>
                 </NavLink>
+                {token !== null &&
+                    (
+                        <div className='ml-2 flex self-center'>
+                            <FaBars className="text-xl " />
+                        </div>
+                    )
+                }
             </div>
         </div>
     </div>

@@ -4,10 +4,32 @@ import pizzaLogo from '../../assets/logos/pizzalogo.png'
 import { Inputfield } from './Inputfield'
 import { Label } from './Label'
 import { AppContext } from '../contextapi/ContextApi'
+import { login, signUp } from '../../operations/authFunctions'
+import { useDispatch } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
 
 export const FormTemplate = ({signUpPage}) => {
 
-    const {handleOnSubmit} = useContext(AppContext)
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+
+    const {formData,setFormData} = useContext(AppContext)
+
+    const {name ,email, password, confirmPassword} = formData
+
+    function handleOnSignUp(){
+        dispatch(signUp(name ,email, password, confirmPassword, navigate, dispatch))
+        setFormData({
+            name:"", email:"" , password:"", confirmPassword:""
+        })
+    }
+
+    function handleOnLogIn(){
+        dispatch(login(email, password, navigate, dispatch))
+        setFormData({
+            name:"", email:"" , password:"", confirmPassword:""
+        })
+    }
 
   return (
     <div className="flex  min-h-full flex-col justify-center px-6 py-8 lg:px-8 w-full">
@@ -21,9 +43,7 @@ export const FormTemplate = ({signUpPage}) => {
       </div>
 
       <div className="mt-5 sm:mx-auto sm:w-full sm:max-w-sm">
-        <form className="space-y-2 min-w-80" action="#" method="POST"
-            onSubmit={()=>handleOnSubmit(signUpPage)}
-        >
+        <form className="space-y-2 min-w-80" action="#" method="POST">
 
             { signUpPage &&
                 (
@@ -64,9 +84,12 @@ export const FormTemplate = ({signUpPage}) => {
                 )
             }
 
-            <button className='w-full font-medium pt-4' type='submit'>
-                <Btn btnText={ signUpPage ? "Sign Up":"Log In"} bgColor={'bg-orange-400'} hoverColor={'bg-orange-600'} />
-            </button>
+            
+            <Btn clickHandler={signUpPage ? ()=> handleOnSignUp: ()=>handleOnLogIn()}
+                btnText={ signUpPage ? "Sign Up":"Log In"}
+                bgColor={'bg-orange-400'} hoverColor={'bg-orange-600'} 
+            />
+            
 
         </form>
 

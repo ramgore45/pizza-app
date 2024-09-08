@@ -89,6 +89,7 @@ export const AppContextProvider = ({children}) => {
 
 
     const value = {
+        formData,setFormData,
         logIn, setLogIn,
         profile, setProfile,
         users, setUsers,

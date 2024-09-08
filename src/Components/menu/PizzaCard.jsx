@@ -69,7 +69,7 @@ export const PizzaCard = ({pizza}) => {
                         <Btn 
                             btnText={count} 
                             btnIcon2={<IoIosAddCircleOutline />}
-                            iconHandler2={()=>incrementCountHandler(pizza)} 
+                            iconHandler2={()=>incrementCountHandler( pizza)} 
                             btnIcon={<FiMinusCircle/>} 
                             iconHandler1={()=>decrementCountHandler(pizza)}
                             bgColor={'bg-gray-300'} hoverColor={'bg-gray-500'} 

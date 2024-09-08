@@ -14,6 +14,7 @@ export const Fullcart = () => {
 
     const navigate = useNavigate()
     const {logIn} = useContext(AppContext)
+    // const {changeHandler} = useContext(AppContext)
 
     const {cart,totalAmount,totalCount} = useSelector(state=> state.cart)
     const dispatch = useDispatch()
@@ -59,6 +60,7 @@ export const Fullcart = () => {
             <input className='w-full outline-none rounded-md border border-black p-2 placeholder:text-black placeholder:font-medium'
                 type='text'
                 placeholder='Pizza delivery address'
+                name='address'
             />
         </div>
         <div className='text-white self-end font-medium'>
