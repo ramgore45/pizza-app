@@ -6,10 +6,10 @@ const initialState = {
     : [],
     totalCount:localStorage.getItem("totalCount")
     ? JSON.parse(localStorage.getItem("totalCount"))
-    : [],
+    : 0,
     totalAmount:localStorage.getItem("totalAmount")
     ? JSON.parse(localStorage.getItem("totalAmount"))
-    : [],
+    : 0,
 }
 
 const cartSlice = createSlice({
@@ -20,7 +20,7 @@ const cartSlice = createSlice({
       const item = action.payload
       const pizza = {...item, count:1 }
       state.totalCount++
-      state.totalAmount += pizza.price*pizza.count
+      state.totalAmount += pizza.price
       console.log(pizza)
       state.cart.push(pizza)
     },
@@ -31,7 +31,7 @@ const cartSlice = createSlice({
           console.log(pizza.count++),
           {...pizza, count:pizza.count+1} ,
           state.totalCount ++,
-          state.totalAmount += pizza.price*1
+          state.totalAmount += pizza.price
         ) : item
       ))
     },

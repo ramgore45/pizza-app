@@ -13,9 +13,9 @@ import { AppContext } from '../contextapi/ContextApi'
 export const Fullcart = () => {
 
     const navigate = useNavigate()
-    const {logIn} = useContext(AppContext)
+    // const {logIn} = useContext(AppContext)
     // const {changeHandler} = useContext(AppContext)
-
+    const {token} = useSelector(state=> state.auth)
     const {cart,totalAmount,totalCount} = useSelector(state=> state.cart)
     const dispatch = useDispatch()
 
@@ -65,9 +65,9 @@ export const Fullcart = () => {
         </div>
         <div className='text-white self-end font-medium'>
             <Btn 
-                clickHandler={logIn ? ()=>console.log('btn') : ()=>navigate('/login') }
-                btnIcon={logIn ? <FaArrowCircleRight/> : <LuLogIn/>}
-                btnText={ logIn ?'Order Now':'Login To Continue'} 
+                clickHandler={token ? ()=>console.log('btn') : ()=>navigate('/login') }
+                btnIcon={token ? <FaArrowCircleRight/> : <LuLogIn/>}
+                btnText={token ?'Order Now':'Login To Continue'}
                 bgColor={'bg-red-500'} hoverColor={'bg-color-700'}
             />
         </div>
