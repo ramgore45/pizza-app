@@ -37,8 +37,12 @@ app.use(
 
 // Routes
 const userRoutes = require('./routes/userRoutes')
+const pizzaRoutes = require('./routes/pizzaRoutes')
+const orderRoutes = require('./routes/orderRoutes')
 
 app.use('/api/v1/auth' ,userRoutes)
+app.use('/api/v1/pizzas' ,pizzaRoutes)
+app.use('/api/v1/order' ,orderRoutes)
 
 app.get('/' , (req,res)=>{
     res.send("PIZZA Server is in Progress")

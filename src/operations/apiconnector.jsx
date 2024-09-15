@@ -4,7 +4,7 @@ import toast from "react-hot-toast"
 export const axiosInstances = axios.create({})
 
 export const apiConnector= async (method, url, data, headers, params)=>{
-    console.log(method, url, data)
+    console.log(method, url )
     try{
         return axiosInstances({
             method: `${method}`,

@@ -4,7 +4,8 @@ import pizza from '../assets/images/pizza.png'
 import { Pizzas } from '../Components/menu/Pizzas'
 import { FaArrowRight } from 'react-icons/fa'
 
-export const Home = () => {
+export const Home = ({pizzaData}) => {
+
   return (
     <div className='py-5 min-h-screen'>
       {/* Seciton 1 Banner */}
@@ -26,7 +27,7 @@ export const Home = () => {
       {/* Section 2 List of Products */}
       <section className='w-full my-10'>
         <div className='text-3xl font-bold mb-5'>Pizza Menu</div>
-        <Pizzas/>
+        <Pizzas pizzaData={pizzaData}/>
       </section>
     </div>
   )

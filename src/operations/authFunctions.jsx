@@ -32,7 +32,7 @@ export async function login (email, password, navigate, dispatch){
 
         localStorage.setItem("token", JSON.stringify(response.data.token))
         localStorage.setItem("user", JSON.stringify(response.data.user))
-        navigate("/cart")
+        navigate("/")
 
     }catch(error){
         console.log(error)

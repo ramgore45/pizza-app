@@ -1,12 +1,16 @@
 const mongoose = require("mongoose")
 
 const pizzaSchema = new mongoose.Schema({
+    id:{
+        type:String,
+        required:true
+    },
     name:{
         type:String,
         require:true,
     },
     img:{
-        type:URL,
+        type:String,
         require:true,
     },
     size:{
@@ -16,6 +20,9 @@ const pizzaSchema = new mongoose.Schema({
     price:{
         type:Number,
         require:true,
+    },
+    createdAt: { 
+        type: Date, default: Date.now 
     }
 })
 

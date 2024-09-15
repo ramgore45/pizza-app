@@ -1,0 +1,72 @@
+[
+    {
+        "id":"1",
+        "img":"../assets/images/pizza.png",
+        "name":"Margherita",
+        "size":"small",
+        "price":200
+    },
+    {
+        "id":"2",
+        "img":"../assets/images/pizza.png",
+        "name":"Onion",
+        "size":"medium",
+        "price":300
+    },
+    {
+        "id":"3",
+        "img":"../assets/images/pizza.png",
+        "name":"Paneer",
+        "size":"small",
+        "price":250
+    },
+    {
+        "id":"4",
+        "img":"../assets/images/pizza.png",
+        "name":"Paneer Masala",
+        "size":"large",
+        "price":600
+    },
+    {
+        "id":"5",
+        "img":"../assets/images/pizza.png",
+        "name":"Mix Veg",
+        "size":"large",
+        "price":700
+    },
+    {
+        "id":"6",
+        "img":"../assets/images/pizza.png",
+        "name":"Paneer Onion",
+        "size":"medium",
+        "price":450
+    },
+    {
+        "id":"7",
+        "img":"../assets/images/pizza.png",
+        "name":"Corn Cheese",
+        "size":"small",
+        "price":250
+    },
+    {
+        "id":"8",
+        "img":"../assets/images/pizza.png",
+        "name":"Corn Paneer",
+        "size":"medium",
+        "price":450
+    },
+    {
+        "id":"9",
+        "img":"../assets/images/pizza.png",
+        "name":"Special Cheese",
+        "size":"small",
+        "price":250
+    },
+    {
+        "id":"10",
+        "img":"../assets/images/pizza.png",
+        "name":"Margherita Chess",
+        "size":"medium",
+        "price":400
+    }
+]

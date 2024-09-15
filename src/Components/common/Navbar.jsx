@@ -1,17 +1,20 @@
-import React from 'react'
+import React, { useState } from 'react'
 import pizzalogo from '../../assets/logos/pizzalogo.png'
 import { navItems } from '../../data/NavData'
 import { Btn } from './Btn'
 import { LuLogIn } from 'react-icons/lu'
-import { MdAddShoppingCart } from 'react-icons/md'
+import { MdAddShoppingCart, MdOutlineSpaceDashboard } from 'react-icons/md'
 import { matchPath, NavLink, useLocation } from 'react-router-dom'
 import { useSelector } from 'react-redux'
 import { FaBars } from 'react-icons/fa'
+import { IoIosLogOut } from 'react-icons/io'
 
 export const Navbar = ({totalCount}) => {
 
     const location = useLocation()
     const {token} = useSelector(state=> state.auth)
+
+    const [hamburger,setHamburger] = useState(false)
 
     const matchroute=(route)=>{
         return matchPath({path:route}, location.pathname)
@@ -47,7 +50,7 @@ export const Navbar = ({totalCount}) => {
             </nav>
 
             {/* Buttons */}
-            <div className='flex gap-x-4 self-center justify-center content-center font-medium'>
+            <div className='relative flex gap-x-4 self-center justify-center content-center font-medium'>
                 {token===null &&
                     (
                         <NavLink to={'/login'}>
@@ -76,8 +79,19 @@ export const Navbar = ({totalCount}) => {
                 </NavLink>
                 {token !== null &&
                     (
-                        <div className='ml-2 flex self-center'>
-                            <FaBars className="text-xl " />
+                        <div className='ml-2 flex self-center cursor-pointer'
+                            onClick={()=>setHamburger(!hamburger)}
+                        >
+                            <FaBars className={`text-xl ${hamburger? 'rotate-90':''}`}  />
+                        </div>
+                    )
+                }
+                {hamburger &&
+                    (
+                        <div className='absolute z-10 -bottom-[85px] -right-5 text-gray-800 bg-white border border-gray-300 rounded-md p-2 px-3'>
+                            <div className='p-1 px-2 flex gap-x-2'><MdOutlineSpaceDashboard className='self-center text-lg'/>Dashboard</div>
+                            <hr/>
+                            <div className='p-1 px-2 flex gap-x-2'><IoIosLogOut className='self-center text-lg'/>Log out</div>
                         </div>
                     )
                 }

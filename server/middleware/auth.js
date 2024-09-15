@@ -4,6 +4,7 @@ const JWT = require("jsonwebtoken")
 exports.auth = async(req,res,next)=>{
     try{
         const token = req.header("Authorization").replace("Bearer ", "") || req.cookies.token || req.body.token
+
         if(!token){
             return res.status(400).json({
                 success:false,
@@ -35,6 +36,7 @@ exports.auth = async(req,res,next)=>{
 
 exports.isCustomer = async(req, res, next)=>{
     try{
+        // console.log("isCustomer is started", req.user)
         const user = await User.findOne({email:req.user.email})
         if(user.accountType !=="Customer"){
             return res.status(404).json({
@@ -55,6 +57,7 @@ exports.isCustomer = async(req, res, next)=>{
 
 exports.isAdmin = async(req, res, next)=>{
     try{
+        // console.log("isAdmin is started", req.user)
         const user = await User.findOne({email:req.user.email})
         if(user.accountType !=="Admin"){
             return res.status(404).json({

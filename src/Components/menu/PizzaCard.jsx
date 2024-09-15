@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, minusItem, plusItem, removeFromCart } from '../../reducer/slices/cartSlice'
 import { FiMinusCircle } from 'react-icons/fi'
 
+import pizzaImg from '../../assets/images/pizza.png'
+
 export const PizzaCard = ({pizza}) => {
 
     const [item,setItem] = useState()

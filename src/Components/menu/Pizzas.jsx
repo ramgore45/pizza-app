@@ -2,11 +2,14 @@ import React from 'react'
 import { pizzaItems } from '../../data/PizzaData'
 import { PizzaCard } from './PizzaCard'
 
-export const Pizzas = () => {
+export const Pizzas = ({pizzaData}) => {
+
+  console.log(pizzaData)
+
   return (
     <div className='flex flex-wrap w-full gap-4'>
         {
-            pizzaItems.map((pizza)=>(
+            pizzaData.map((pizza)=>(
                 <PizzaCard pizza={pizza}/>
             ))
         }

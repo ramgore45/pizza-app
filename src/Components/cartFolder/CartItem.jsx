@@ -27,7 +27,7 @@ export const CartItem = ({pizza, removeFromCart, dispatch}) => {
     }
 
   return (
-    <div className='py-6 flex justify-between border-y-2'>
+    <div className='py-6 flex justify-between border-b-2'>
         <div className='flex gap-2 self-center'>
             <div className='w-28' >
                 <img className='w-full'

@@ -25,7 +25,7 @@ export const FormTemplate = ({signUpPage}) => {
     }
 
     function handleOnLogIn(){
-        dispatch(login(email, password, navigate, dispatch))
+        login(email, password, navigate, dispatch)
         setFormData({
             name:"", email:"" , password:"", confirmPassword:""
         })

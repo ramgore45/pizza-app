@@ -9,15 +9,32 @@ import { useDispatch, useSelector } from 'react-redux'
 import { removeFromCart,emptyCart } from '../../reducer/slices/cartSlice'
 import { useNavigate } from 'react-router-dom'
 import { AppContext } from '../contextapi/ContextApi'
+import { Inputfield } from '../Forms/Inputfield'
+import toast from 'react-hot-toast'
+import { buyPizzaHandler } from '../../operations/orderFunctions'
 
 export const Fullcart = () => {
 
     const navigate = useNavigate()
-    // const {logIn} = useContext(AppContext)
+    const {formData, setFormData} = useContext(AppContext)
     // const {changeHandler} = useContext(AppContext)
     const {token} = useSelector(state=> state.auth)
     const {cart,totalAmount,totalCount} = useSelector(state=> state.cart)
     const dispatch = useDispatch()
+
+    const orderNowHandler = ()=>{
+
+        const pizzas = cart.map((pizza)=> pizza)
+        console.log(pizzas)
+        const {contact, address} = formData
+
+        buyPizzaHandler(pizzas, totalAmount, address, contact, token, navigate, dispatch)
+
+        setFormData({
+            contact:"", address:""
+        })
+
+    }
 
   return (
     <div className='w-8/12 flex flex-col gap-4'>
@@ -26,7 +43,7 @@ export const Fullcart = () => {
             <TiShoppingCart className='self-center' />Order Summary
         </div>
         
-        <div>
+        <div className='border-t-2'>
             {
                 cart.map((pizza)=>(
                     <CartItem key={pizza.id} pizza={pizza} 
@@ -56,16 +73,29 @@ export const Fullcart = () => {
                 </span>
             </div>
         </div>
-        <div className='self-end w-[40%]'>
-            <input className='w-full outline-none rounded-md border border-black p-2 placeholder:text-black placeholder:font-medium'
-                type='text'
-                placeholder='Pizza delivery address'
-                name='address'
-            />
-        </div>
+        {token &&
+            (   
+                <div className='w-fit min-w-60 self-end'>
+                    <Inputfield
+                        id={"contact"}
+                        name={"contact"}
+                        type={"number"}
+                        autocomplete={"contact"}
+                        placeholder={"Contact number"}
+                    />
+                    <Inputfield
+                        id={"address"}
+                        name={"address"}
+                        type={"text"}
+                        autocomplete={"address"}
+                        placeholder={"Delievery address"}
+                    />
+                </div>
+            )
+        }
         <div className='text-white self-end font-medium'>
             <Btn 
-                clickHandler={token ? ()=>console.log('btn') : ()=>navigate('/login') }
+                clickHandler={token ? ()=>orderNowHandler() : ()=>navigate('/login') }
                 btnIcon={token ? <FaArrowCircleRight/> : <LuLogIn/>}
                 btnText={token ?'Order Now':'Login To Continue'}
                 bgColor={'bg-red-500'} hoverColor={'bg-color-700'}

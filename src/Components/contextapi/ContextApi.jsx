@@ -15,10 +15,10 @@ export const AppContextProvider = ({children}) => {
     const [profile, setProfile] = useState({})
 
     const [formData, setFormData] = useState({
-        name:"", email:"" , password:"", confirmPassword:""
+        name:"", email:"" , password:"", confirmPassword:"", contact:"", address:""
     })
 
-    const {name ,email, password, confirmPassword} = formData
+    const {name ,email, password, confirmPassword, contact, address} = formData
 
     const changeHandler = (e) => {
         e.preventDefault()
