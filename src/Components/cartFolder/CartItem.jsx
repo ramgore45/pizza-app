@@ -31,7 +31,7 @@ export const CartItem = ({pizza, removeFromCart, dispatch}) => {
         <div className='flex gap-2 self-center'>
             <div className='w-28' >
                 <img className='w-full'
-                    src={pizza.img} alt='pizza-template'
+                    src={require(`../../${pizza.img}`)} alt='pizza-template'
                 />
             </div>
             <div className='self-center'>

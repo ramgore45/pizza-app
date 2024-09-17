@@ -6,18 +6,18 @@ import { useDispatch, useSelector } from 'react-redux'
 import { addToCart, minusItem, plusItem, removeFromCart } from '../../reducer/slices/cartSlice'
 import { FiMinusCircle } from 'react-icons/fi'
 
-import pizzaImg from '../../assets/images/pizza.png'
 
 export const PizzaCard = ({pizza}) => {
 
     const [item,setItem] = useState()
     const [count, setCount]  =useState('')
     const {cart} = useSelector(state=> state.cart)
+    const {user} = useSelector(state=> state.auth)
     const isInCart =()=>{
         setItem(cart.find((item)=> item.id===pizza.id))
     }
 
-    // console.log(item)
+    console.log(`../../${pizza.img}`)
 
     const dispatch = useDispatch()
 
@@ -54,7 +54,7 @@ export const PizzaCard = ({pizza}) => {
         hover:scale-105 transition duration-300 ease-in-out 
     '>
         <div className='flex'>
-            <img className='w-full ' src={pizza.img} alt={pizza.name}/>
+            <img className='w-full ' src={require(`../../${pizza.img}`)} alt={pizza.name}/>
         </div>
         <div className='flex justify-between font-semibold mx-2'>
             <div className='text-xl'>{pizza.name}</div>
@@ -65,24 +65,26 @@ export const PizzaCard = ({pizza}) => {
                 <MdOutlineCurrencyRupee className='self-center'/> {pizza.price}
             </div>
             <div className=''>
-                {
-                    item ? 
+                {(user===null || user.accountType === "Customer") &&
                     (
-                        <Btn 
-                            btnText={count} 
-                            btnIcon2={<IoIosAddCircleOutline />}
-                            iconHandler2={()=>incrementCountHandler( pizza)} 
-                            btnIcon={<FiMinusCircle/>} 
-                            iconHandler1={()=>decrementCountHandler(pizza)}
-                            bgColor={'bg-gray-300'} hoverColor={'bg-gray-500'} 
-                        />
-                    ):(
-                        <Btn 
-                            btnText={"Add"} 
-                            btnIcon={<IoIosAddCircleOutline/>} 
-                            bgColor={'bg-red-400'} hoverColor={'bg-red-600'} 
-                            clickHandler={()=>addToCartHandler(pizza)}
-                        />
+                        item ? 
+                        (
+                            <Btn 
+                                btnText={count} 
+                                btnIcon2={<IoIosAddCircleOutline />}
+                                iconHandler2={()=>incrementCountHandler( pizza)} 
+                                btnIcon={<FiMinusCircle/>} 
+                                iconHandler1={()=>decrementCountHandler(pizza)}
+                                bgColor={'bg-gray-300'} hoverColor={'bg-gray-500'} 
+                            />
+                        ):(
+                            <Btn 
+                                btnText={"Add"} 
+                                btnIcon={<IoIosAddCircleOutline/>} 
+                                bgColor={'bg-red-600'} hoverColor={'bg-red-700'} 
+                                clickHandler={()=>addToCartHandler(pizza)}
+                            />
+                        )
                     )
                 }
             </div>

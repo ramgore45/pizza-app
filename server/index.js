@@ -35,6 +35,11 @@ app.use(
 	})
 )
 
+// Emitter 
+const Emitter = require('events')
+const eventEmitter = new Emitter()
+app.set('eventEmitter', eventEmitter)
+
 // Routes
 const userRoutes = require('./routes/userRoutes')
 const pizzaRoutes = require('./routes/pizzaRoutes')
@@ -48,6 +53,32 @@ app.get('/' , (req,res)=>{
     res.send("PIZZA Server is in Progress")
 })
 
-app.listen(PORT, () => {
+const server = app.listen(PORT, () => {
 	console.log(`App is running at ${PORT}`)
+})
+
+const io = require('socket.io')(server)
+io.on('connection', (socket) => {
+    console.log('New client connected');
+
+    socket.on('join', (room) => {
+        socket.join(room);
+        console.log(`Client joined room: ${room}`);
+    });
+
+    socket.on('updateOrderStatus', (order) => {
+        // Emit to the specific room that the order belongs to
+        io.to(`order_${order._id}`).emit('orderStatusUpdate', {
+            id: order._id,
+            status: order.status
+        });
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
+});
+
+eventEmitter.on('orderStatusUpdate', (data)=>{
+	io.to(`order_${data.id}`).emit('orderStatusUpdate', data)
 })

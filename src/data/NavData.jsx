@@ -1,4 +1,19 @@
-export const navItems = [
+export const nav = [
+    {
+        page:'Home',
+        path:'/'
+    },
+    {
+        page:'About Us',
+        path:'/aboutus'
+    },
+    {
+        page:'Contact Us',
+        path:'/contactsus'
+    }
+]
+
+export const navCustomer = [
     {
         page:'Home',
         path:'/'
@@ -8,15 +23,34 @@ export const navItems = [
         path:'/menu'
     },
     {
-        page:'Offers',
-        path:'/offers'
+        page:'My Orders',
+        path:'/myorders'
     },
+    // {
+    //     page:'My Offers',
+    //     path:'/myoffers'
+    // },
     {
         page:'About Us',
-        path:'/about-us'
+        path:'/aboutus'
     },
     {
         page:'Contact Us',
-        path:'/contact-us'
+        path:'/contactus'
     }
+];  
+
+export const navAdmin = [
+    {
+        page:'Home',
+        path:'/'
+    },
+    {
+        page:'All Orders',
+        path:'/allorders'
+    },
+    // {
+    //     page:'Create Offers',
+    //     path:'/createoffer'
+    // },
 ];  

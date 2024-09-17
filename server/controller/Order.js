@@ -214,7 +214,6 @@ exports.getSingleOrder = async(req,res)=>{
 exports.updateOrderStatus = async(req,res)=>{
     try{
         const {orderId, status} = req.body
-        console.log("updateOrderStatus", req.body)
 
         if(!orderId || !status){
             return res.status(400).json({
@@ -232,6 +231,9 @@ exports.updateOrderStatus = async(req,res)=>{
                                 )
         
         console.log(order)
+
+        const eventEmitter = req.app.get('eventEmitter')
+        eventEmitter.emit('orderStatusUpdate', {id:orderId, status:status})
 
         return res.status(200).json({
             success:true,

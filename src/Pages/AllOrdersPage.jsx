@@ -3,6 +3,9 @@ import { Allorders } from '../Components/ordersFolder/Allorders'
 import { useSelector } from 'react-redux'
 import { fetchAllOrdersHandler } from '../operations/orderFunctions'
 import toast from 'react-hot-toast'
+import { io } from 'socket.io-client'
+
+const socket = io()
 
 export const AllOrdersPage = () => {
 
@@ -24,8 +27,19 @@ export const AllOrdersPage = () => {
           }
       }
       fetchAllOrders()
-      console.log(orders)
-  },[])
+      
+      socket.on('orderStatusUpdate', (data) => {
+        setOrders((prevOrders) => {
+          prevOrders.map(order => 
+            order._id === data.id ? { ...order, status: data.status } : order
+          );
+        });
+      });
+  
+      return () => {
+        socket.off('orderStatusUpdate');
+      };
+  },[token])
 
   return (
     <div>

@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import pizzalogo from '../../assets/logos/pizzalogo.png'
-import { navItems } from '../../data/NavData'
+import { nav, navAdmin, navCustomer } from '../../data/NavData'
 import { Btn } from './Btn'
 import { LuLogIn } from 'react-icons/lu'
 import { MdAddShoppingCart, MdOutlineSpaceDashboard } from 'react-icons/md'
@@ -12,13 +12,20 @@ import { IoIosLogOut } from 'react-icons/io'
 export const Navbar = ({totalCount}) => {
 
     const location = useLocation()
-    const {token} = useSelector(state=> state.auth)
+    const {token, user} = useSelector(state=> state.auth)
+    const [navItems, setNavitems] = useState(nav)
 
     const [hamburger,setHamburger] = useState(false)
 
     const matchroute=(route)=>{
         return matchPath({path:route}, location.pathname)
     }
+
+    useEffect(()=>{
+        if(user!==null ){
+            return setNavitems(user.accountType === "Customer" ? navCustomer :  navAdmin)
+        }
+    },[user,token])
     
   return (
     <div className='flex bg-white content-center justify-between px-20 py-2 border-b shadow-md shadow-gray-200'>
@@ -65,19 +72,28 @@ export const Navbar = ({totalCount}) => {
                         </NavLink>
                     )     
                 }
-                <NavLink to={'/cart'}>
-                    <div className='relative w-fit'>
-                        {
-                            totalCount>0 && (
-                                <div className='absolute animate-bounce right-0 -top-1 bg-yellow-400 rounded-full w-5 h-5 text-center text-sm'>
-                                    {totalCount}
-                                </div>
-                            )
-                        }
-                        <Btn btnIcon={<MdAddShoppingCart/>} btnText={'Cart'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>                   
-                    </div>
-                </NavLink>
-                {token !== null &&
+                {(user===null || (user !==null && user.accountType !== "Admin"))&&
+                    (
+                        <NavLink to={'/cart'}>
+                            <div className='relative w-fit'>
+                                {
+                                    totalCount>0 && (
+                                        <div className='absolute animate-bounce right-0 -top-1 bg-yellow-400 rounded-full w-5 h-5 text-center text-sm'>
+                                            {totalCount}
+                                        </div>
+                                    )
+                                }
+                                <Btn btnIcon={<MdAddShoppingCart/>} btnText={'Cart'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'}/>                   
+                            </div>
+                        </NavLink>
+                    )
+                }
+                {(token !== null && user !== null) &&
+                    (
+                        <Btn btnIcon={<IoIosLogOut/>} btnText={'Log Out'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'} />
+                    )
+                }
+                {/* {token !== null &&
                     (
                         <div className='ml-2 flex self-center cursor-pointer'
                             onClick={()=>setHamburger(!hamburger)}
@@ -85,8 +101,8 @@ export const Navbar = ({totalCount}) => {
                             <FaBars className={`text-xl ${hamburger? 'rotate-90':''}`}  />
                         </div>
                     )
-                }
-                {hamburger &&
+                } */}
+                {/* {hamburger &&
                     (
                         <div className='absolute z-10 -bottom-[85px] -right-5 text-gray-800 bg-white border border-gray-300 rounded-md p-2 px-3'>
                             <div className='p-1 px-2 flex gap-x-2'><MdOutlineSpaceDashboard className='self-center text-lg'/>Dashboard</div>
@@ -94,7 +110,7 @@ export const Navbar = ({totalCount}) => {
                             <div className='p-1 px-2 flex gap-x-2'><IoIosLogOut className='self-center text-lg'/>Log out</div>
                         </div>
                     )
-                }
+                } */}
             </div>
         </div>
     </div>

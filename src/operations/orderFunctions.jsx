@@ -73,7 +73,7 @@ export const fetchAllOrdersHandler = async(token)=>{
     }
 }
 
-export const updateOrderStatusHandler = async(orderId, status, token)=>{
+export const updateOrderStatusHandler = async(orderId, status, token, socket)=>{
     try{
         const response = await apiConnector("POST", UPDATE_ORDER_STATUS_URL,
                                             {orderId, status, token},
@@ -83,6 +83,14 @@ export const updateOrderStatusHandler = async(orderId, status, token)=>{
                                         )
 
         console.log(response)
+        if (response.data.success) {
+            toast.success("Order status updated successfully");
+
+            // Notify other clients
+            if (socket) {
+                socket.emit('updateOrderStatus', { _id: orderId, status:status });
+            }
+        }
         toast.success("Order status update successfully.")
         return
     }catch(error){

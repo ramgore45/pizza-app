@@ -1,8 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { Myorders } from '../Components/ordersFolder/Myorders'
 import { useSelector } from 'react-redux'
-import { buyPizzaHandler, fetchMyOrdersHandler } from '../operations/orderFunctions'
+import { fetchMyOrdersHandler } from '../operations/orderFunctions'
 import toast from 'react-hot-toast'
+import { io } from 'socket.io-client'
+
+const socket = io()
 
 export const MyOrdersPage = () => {
 
@@ -23,7 +26,18 @@ export const MyOrdersPage = () => {
           }
       }
       fetchMyOrders()
-      console.log(orders)
+      
+      socket.on('orderStatusUpdate', (data) => {
+        setOrders(prevOrders => {
+          return prevOrders.map(order => 
+            order._id === data.id ? { ...order, status: data.status } : order
+          );
+        });
+      });
+  
+      return () => {
+        socket.off('orderStatusUpdate');
+      };
   },[])
 
   return (

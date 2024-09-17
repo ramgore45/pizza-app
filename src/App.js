@@ -1,4 +1,3 @@
-import logo from './logo.svg';
 import { Navbar } from './Components/common/Navbar';
 import { Home } from './Pages/Home';
 import { Cart } from './Pages/Cart';
@@ -19,6 +18,7 @@ import { MyOrdersPage } from './Pages/MyOrdersPage';
 import { AllOrdersPage } from './Pages/AllOrdersPage';
 import { Error } from './Pages/Error';
 import { SingleOrder } from './Components/ordersFolder/SingleOrder';
+import { Footer } from './Components/common/Footer';
 
 const {GET_PIZZA_URL} = pizzaEndpoints
 
@@ -57,8 +57,8 @@ function App() {
       <div className='mx-24 min-h-[calc(100vh-80px)]'>
         <Routes>
           <Route path='/' element={<Home pizzaData={pizzaData}/>} />
-          <Route path='/about-us' element={<AboutUs/>} />
-          <Route path='/contact-us' element={<ContactUs/>} />
+          <Route path='/aboutus' element={<AboutUs/>} />
+          <Route path='/contactus' element={<ContactUs/>} />
           <Route path='/login' element={<LogIn/>} />
           <Route path='/signup' element={<SignUp/>} />
          
@@ -79,6 +79,9 @@ function App() {
 
           <Route path="*" element={<Error/>} />
         </Routes>
+      </div>
+      <div>
+        <Footer/>
       </div>
     </div>
   );
