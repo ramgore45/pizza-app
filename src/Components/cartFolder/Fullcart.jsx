@@ -57,7 +57,7 @@ export const Fullcart = () => {
             <div className='font-medium '>
                  <Btn 
                     clickHandler={()=>dispatch(emptyCart())}
-                    btnText={'Empty Cart'} btnIcon={<MdDeleteOutline />} 
+                    btnText={'Reset Cart'} btnIcon={<MdDeleteOutline />} 
                     bgColor={'bg-red-500'}/>
             </div>
             <div className='flex self-center'>

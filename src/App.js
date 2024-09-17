@@ -61,13 +61,13 @@ function App() {
           <Route path='/contactus' element={<ContactUs/>} />
           <Route path='/login' element={<LogIn/>} />
           <Route path='/signup' element={<SignUp/>} />
+          <Route path='/menu' element={<Menu pizzaData={pizzaData}/>} />
          
           { user!==null &&  user.accountType === "Customer" &&
             <>
               <Route path='/myorders' element={<MyOrdersPage/>} />
               <Route path='/myorders/:orderId' element={<SingleOrder/>} />
               <Route path='/cart' element={<Cart/>} />
-              <Route path='/menu' element={<Menu pizzaData={pizzaData}/>} />
               <Route path='/offers' element={<Offers/>} />
             </>
           }

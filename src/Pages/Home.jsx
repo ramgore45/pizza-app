@@ -44,8 +44,12 @@ import { SpecialMenu } from '../Components/menu/SpecialMenu'
 // import { ReviewSlider } from '../components/common/ReviewSlider'
 import { Pizzas } from '../Components/menu/Pizzas'
 import { Btn } from '../Components/common/Btn'
+import { useNavigate } from 'react-router-dom'
 
 export const Home = ({ pizzaData }) => {
+
+  const navigate = useNavigate()
+   
   return (
     <div className='py-5 min-h-screen text-black'>
       {/* Section 1: Hero Banner */}
@@ -55,6 +59,7 @@ export const Home = ({ pizzaData }) => {
           <div className='text-6xl my-3 font-bold'>Don't Wait!</div>
           <div className='w-fit'>
             <Btn 
+              clickHandler={()=>navigate('/menu')}
               btnText={"Order Now"} 
               btnIcon2={<FaArrowRight />} 
               bgColor={'bg-yellow-400'} 
@@ -78,11 +83,11 @@ export const Home = ({ pizzaData }) => {
         </div>
 
         <div className='flex flex-row gap-7 mt-8'>
-          <CTAButton active={true} linkto={'/order'}>
+          <CTAButton active={true} linkto={'/menu'}>
             Order Now
           </CTAButton>
 
-          <CTAButton active={false} linkto={'/about'}>
+          <CTAButton active={false} linkto={'/aboutus'}>
             Learn More
           </CTAButton>
         </div>

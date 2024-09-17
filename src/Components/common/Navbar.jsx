@@ -4,18 +4,25 @@ import { nav, navAdmin, navCustomer } from '../../data/NavData'
 import { Btn } from './Btn'
 import { LuLogIn } from 'react-icons/lu'
 import { MdAddShoppingCart, MdOutlineSpaceDashboard } from 'react-icons/md'
-import { matchPath, NavLink, useLocation } from 'react-router-dom'
-import { useSelector } from 'react-redux'
+import { matchPath, NavLink, useLocation, useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 import { FaBars } from 'react-icons/fa'
 import { IoIosLogOut } from 'react-icons/io'
+import { logout } from '../../operations/authFunctions'
 
 export const Navbar = ({totalCount}) => {
 
     const location = useLocation()
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
     const {token, user} = useSelector(state=> state.auth)
     const [navItems, setNavitems] = useState(nav)
 
     const [hamburger,setHamburger] = useState(false)
+
+    const logOutHandler=()=>{
+        logout(navigate,dispatch)
+    }
 
     const matchroute=(route)=>{
         return matchPath({path:route}, location.pathname)
@@ -90,7 +97,12 @@ export const Navbar = ({totalCount}) => {
                 }
                 {(token !== null && user !== null) &&
                     (
-                        <Btn btnIcon={<IoIosLogOut/>} btnText={'Log Out'} bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'} />
+                        <Btn 
+                            clickHandler={()=>logOutHandler()}
+                            btnIcon={<IoIosLogOut/>} 
+                            btnText={'Log Out'} 
+                            bgColor={'bg-orange-400'} hoverColor={'bg-orange-500'} 
+                        />
                     )
                 }
                 {/* {token !== null &&

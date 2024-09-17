@@ -4,6 +4,10 @@ export const nav = [
         path:'/'
     },
     {
+        page:'Menu',
+        path:'/menu'
+    },
+    {
         page:'About Us',
         path:'/aboutus'
     },
@@ -44,6 +48,10 @@ export const navAdmin = [
     {
         page:'Home',
         path:'/'
+    },
+    {
+        page:'Menu',
+        path:'/menu'
     },
     {
         page:'All Orders',

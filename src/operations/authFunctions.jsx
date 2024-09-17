@@ -2,6 +2,7 @@ import toast from "react-hot-toast"
 import { apiConnector } from "./apiconnector"
 import { authEndpoints } from "./api"
 import { setToken, setUser } from "../reducer/slices/authSlice"
+import { emptyCart } from "../reducer/slices/cartSlice"
 
 const URL = process.env.REACT_APP_BASE_URL
 
@@ -69,3 +70,21 @@ export async function signUp (name, email, password, confirmPassword, navigate, 
         toast.error('Unexpected error occurs during SignUp, SignUp Failed')
     }
 }
+
+
+export async function logout(navigate,dispatch) {
+   try{
+        localStorage.removeItem("token")
+        localStorage.removeItem("user")
+        dispatch(setToken(null))
+        dispatch(setUser(null))
+        dispatch(emptyCart())
+        toast.success("Logged Out")
+        navigate("/")
+      
+   }
+   catch(error){
+    console.log(error)
+    toast.error("Log out failed, please try again")
+   }
+  }
